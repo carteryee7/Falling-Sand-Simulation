@@ -11,29 +11,31 @@ COLS, ROWS = 200, 150
 CELL_SIZE = 4  # each cell is 4x4 pixels
 
 grid = Grid(COLS, ROWS)
-color = (255, 255, 255)
+
+colors = [(194, 178, 128), (194, 178, 128), (226, 202, 118), (250, 213, 165),
+        (241, 213, 129), (168, 143, 89), (193, 154, 107), (194, 178, 128),
+        (194, 178, 128), (194, 178, 128), (194, 178, 128), (194, 178, 128),
+        (194, 178, 128), (194, 178, 128), (194, 178, 128), (194, 178, 128)]
 
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                grid.add_cell(Cell(color, 100, 75))
 
     mouse_buttons = pygame.mouse.get_pressed()
     
     if mouse_buttons[0]:
         # This code runs every frame the left button is held down
         x, y = pygame.mouse.get_pos()
+        pick = random.randint(0, 15)
         if grid.get_cell(int(x/4), int(y/4)) is None:
-            grid.add_cell(Cell(color, int(x/4), int(y/4)))
+            grid.add_cell(Cell(colors[pick], int(x/4), int(y/4)))
         else:
-            grid.remove_cell(Cell(color, int(x/4), int(y/4)))
+            grid.remove_cell(Cell(colors[pick], int(x/4), int(y/4)))
 
 
-    screen.fill((0, 0, 0))  # clear screen
+    screen.fill((135, 206, 235))  # clear screen
     
     # draw things here
     for y in range(grid.rows - 1, -1, -1):
