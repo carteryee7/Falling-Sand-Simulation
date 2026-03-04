@@ -5,6 +5,12 @@ import random
 
 class SandCell(Cell):
     def __init__(self, x, y):
+        """Initialize a sand cell with a randomly selected sand color.
+        
+        Args:
+            x: The x-coordinate in the grid
+            y: The y-coordinate in the grid
+        """
         colors = [(194, 178, 128), (194, 178, 128), (226, 202, 118), (250, 213, 165),
         (241, 213, 129), (168, 143, 89), (193, 154, 107), (194, 178, 128),
         (194, 178, 128), (194, 178, 128), (194, 178, 128), (194, 178, 128),
@@ -14,6 +20,11 @@ class SandCell(Cell):
         super().__init__(colors[pick], x, y)
     
     def check_rules(self, grid: Grid):
+        """Apply sand physics: fall down, slide diagonally, or sink through water.
+        
+        Args:
+            grid: The grid containing this cell
+        """
         if grid.grid[self.x][self.y + 1] is None:
             grid.set_cell_pos(self, self.x, self.y + 1)
 
