@@ -25,7 +25,7 @@ bedrock_butt = Button("Bedrock", (0, 0, 0), (255, 255, 255), 750, 310, 40, 40)
 eraser_butt = Button("Eraser", (255, 255, 255), (0, 0, 0), 750, 350, 40, 40)
 reset_butt = Button("Reset", (255, 0, 0), (0, 0, 0), 750, 390, 40, 40)
 
-border = pygame.Rect(750, 150, 280, 40)
+border = pygame.Rect(750, 150, 40, 280)
 
 running = True
 while running:
