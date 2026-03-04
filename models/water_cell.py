@@ -1,4 +1,4 @@
-from cell import Cell
+from models.cell import Cell
 from grid import Grid
 import random
 
@@ -18,3 +18,7 @@ class WaterCell(Cell):
             grid.set_cell_pos(self, self.x - 1, self.y + 1)
         elif grid.grid[self.x + 1][self.y + 1] is None:
             grid.set_cell_pos(self, self.x + 1, self.y + 1)
+        elif grid.grid[self.x + 1][self.y] is None:
+            grid.set_cell_pos(self, self.x + 1, self.y)
+        elif grid.grid[self.x - 1][self.y] is None:
+            grid.set_cell_pos(self, self.x - 1, self.y)

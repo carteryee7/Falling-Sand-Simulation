@@ -1,5 +1,6 @@
-from cell import Cell
+from models.cell import Cell
 from grid import Grid
+from models.water_cell import WaterCell
 import random
 
 class SandCell(Cell):
@@ -15,12 +16,24 @@ class SandCell(Cell):
     def check_rules(self, grid: Grid):
         if grid.grid[self.x][self.y + 1] is None:
             grid.set_cell_pos(self, self.x, self.y + 1)
+
         elif grid.grid[self.x - 1][self.y + 1] is None and grid.grid[self.x + 1][self.y + 1] is None:
             if random.choice([True, False]):
                 grid.set_cell_pos(self, self.x - 1, self.y + 1)
             else:
                 grid.set_cell_pos(self, self.x + 1, self.y + 1)
+
         elif grid.grid[self.x - 1][self.y + 1] is None:
             grid.set_cell_pos(self, self.x - 1, self.y + 1)
+
         elif grid.grid[self.x + 1][self.y + 1] is None:
             grid.set_cell_pos(self, self.x + 1, self.y + 1)
+
+        elif isinstance(grid.grid[self.x][self.y + 1], WaterCell):
+            grid.swap_pos(self, grid.grid[self.x][self.y + 1])
+
+        elif isinstance(grid.grid[self.x + 1][self.y + 1], WaterCell):
+            grid.swap_pos(self, grid.grid[self.x + 1][self.y + 1])
+
+        elif isinstance(grid.grid[self.x - 1][self.y + 1], WaterCell):
+            grid.swap_pos(self, grid.grid[self.x - 1][self.y + 1])

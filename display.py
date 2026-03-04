@@ -1,6 +1,7 @@
 import pygame
 from grid import Grid
-from sand_cell import SandCell
+from models.sand_cell import SandCell
+from models.water_cell import WaterCell
 import random
 
 pygame.init()
@@ -12,11 +13,20 @@ CELL_SIZE = 4  # each cell is 4x4 pixels
 
 grid = Grid(COLS, ROWS)
 
+sand = True
+
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                sand = False
+            if event.key == pygame.K_s:
+                sand = True
+            if event.key == pygame.K_r:
+                grid = Grid(COLS, ROWS)  # reset grid
 
     mouse_buttons = pygame.mouse.get_pressed()
     
@@ -25,9 +35,14 @@ while running:
         x, y = pygame.mouse.get_pos()
         
         if grid.get_cell(int(x/4), int(y/4)) is None:
-            grid.add_cell(SandCell(int(x/4), int(y/4)))
+            if sand:
+                grid.add_cell(SandCell(int(x/4), int(y/4)))
+                print("sand")
+            else:
+                grid.add_cell(WaterCell(int(x/4), int(y/4)))
+                
         else:
-            grid.remove_cell(SandCell(int(x/4), int(y/4)))
+            grid.remove_cell(int(x/4), int(y/4))
 
     screen.fill((135, 206, 235))  # clear screen
     
